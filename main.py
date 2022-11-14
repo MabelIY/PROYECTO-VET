@@ -6,6 +6,14 @@ from datetime import datetime, date
 from os import system
 import numpy as np
 
+RED = '\033[31m'
+YELLOW = '\033[33m'
+BLUE = '\033[34m'
+MAGENTA = '\033[35m'
+CYAN = '\033[36m'
+RESET = '\033[39m'
+
+
 class Mascota:
     def __init__(self, nombre, fnacimiento, raza, nombredueno, dnidueno):
         self.nombre = nombre
@@ -37,7 +45,7 @@ def cargarMascota(nombrearchivo):
         dnidueno = row['dnidueno']
         mascota =  Mascota(nombre, fnacimiento, raza, nombredueno, dnidueno)
         lista_mascotas.append(mascota)
-    print("Se cargaron los datos de 5 mascotas")
+    print(RED,"Se cargaron los datos de 5 mascotas",RESET)
     return(lista_mascotas)
     time.sleep(3)
 
@@ -49,7 +57,7 @@ def imprimirMascota(lista_mascotas):
 
 def agregarMascota(lista_mascotas):
     print("3")
-    print(5*"*"+"REGISTRO - NUEVA MASCOTA"+"*"*5)
+    print(BLUE,5*"*"+"REGISTRO - NUEVA MASCOTA"+"*"*5,RESET)
     nombre = input('Nombre: ')
     fnacimiento = input('Fecha de nacimiento: ')
     raza =input('Raza: ')
@@ -65,8 +73,8 @@ def buscarMascota(lista_mascotas):
     opcion = ""
     while opcion != 's':
         lista_busqueda = []
-        print(5*"*"+"Busqueda de mascotas"+ 5*"*")
-        print("seleccione una opcion")
+        print(CYAN,5*"*"+"Busqueda de mascotas"+ 5*"*",RESET)
+        print(YELLOW,"seleccione una opcion",RESET)
         print("[1] Busqueda por nombre")
         print("[2] Busqueda por edad")
         print("[3] Busqueda por raza")
@@ -114,7 +122,7 @@ def buscarMascota(lista_mascotas):
         elif opcion == "S":
             respuesta = 's'
         else:
-            print('seleccione una opcion valida')
+            print(RED,'seleccione una opcion valida',RESET)
         
         for mascota in lista_busqueda:
             mascota.saluda ()
@@ -126,7 +134,7 @@ def ordenarMascota(lista_mascotas):
     opcion = ""
     while opcion != 's':
         lista_ordenada = []
-        print(5*"*"+"Ordenamiento de lista de mascotas"+ 5*"*")
+        print( CYAN,5*"*"+"Ordenamiento de lista de mascotas"+ 5*"*",RESET)
         print("seleccione una opcion")
         print("[1] Ordenar por nombre")
         print("[2] Ordenar por edad")
@@ -161,7 +169,7 @@ def ordenarMascota(lista_mascotas):
         elif opcion == "S":
             respuesta = 's'
         else:
-            print('seleccione una opcion valida')
+            print(RED,'seleccione una opcion valida',RESET)
     
         for mascota in lista_ordenada:
             mascota.saluda ()
@@ -192,36 +200,36 @@ def calculoedad(fnacimiento):
 
 
 '''MENU PRINCIPAL'''
+def Menu():
+    respuesta = ""
+    while respuesta != '7':
+        print(CYAN,10*"*"+"MENU PRINCIPAL VETERNARIA"+"*"*10,RESET)
+        print("[1] Cargar datos")
+        print("[2] Mostrar Mascotas")
+        print("[3] Agregar Mascota")
+        print("[4] Buscar Mascota")
+        print("[5] Listar Mascotas")
+        print("[6] Realizar copia en el dispositivo")
+        print("[7] Salir")
+        respuesta = input('Ingresa una opcion: ')
+        if respuesta == "1":
+            lista_mascotas = cargarMascota("DATOS VETERINARIA.csv")
+        elif respuesta == "2":
+            imprimirMascota(lista_mascotas)
+        elif respuesta == "3":
+            agregarMascota(lista_mascotas)
+        elif respuesta == "4":
+            buscarMascota(lista_mascotas)
+        elif respuesta == "5":
+            ordenarMascota(lista_mascotas)
+        elif respuesta == "6":
+            copia(lista_mascotas)
+        elif respuesta == "7":
+            respuesta = '7'
+        else:
+            print(RED,'Comando inválido',RESET)
 
+        time.sleep(1)
 
-respuesta = ""
-while respuesta != '7':
-    print(10*"*"+"MENU PRINCIPAL VETERNARIA"+"*"*10)
-    print("[1] Cargar datos")
-    print("[2] Mostrar Mascotas")
-    print("[3] Agregar Mascota")
-    print("[4] Buscar Mascota")
-    print("[5] Listar Mascotas")
-    print("[6] Realizar copia en el dispositivo")
-    print("[7] Salir")
-    respuesta = input('Ingresa una opcion: ')
-    if respuesta == "1":
-        lista_mascotas = cargarMascota("DATOS VETERINARIA.csv")
-    elif respuesta == "2":
-        imprimirMascota(lista_mascotas)
-    elif respuesta == "3":
-        agregarMascota(lista_mascotas)
-    elif respuesta == "4":
-        buscarMascota(lista_mascotas)
-    elif respuesta == "5":
-        ordenarMascota(lista_mascotas)
-    elif respuesta == "6":
-        copia(lista_mascotas)
-    elif respuesta == "7":
-        respuesta = '7'
-    else:
-        print('Comando inválido')
-
-    time.sleep(1)
-
-
+if __name__=="__main__":
+    Menu()
